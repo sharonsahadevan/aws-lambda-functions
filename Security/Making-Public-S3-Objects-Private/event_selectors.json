@@ -1,0 +1,10 @@
+[{
+  "IncludeManagementEvents": false,
+  "DataResources": [{
+    "Values": [
+      "arn:aws:s3:::123456789012-everything-must-be-private/"
+    ],
+    "Type": "AWS::S3::Object"
+  }],
+  "ReadWriteType": "All"
+}]
