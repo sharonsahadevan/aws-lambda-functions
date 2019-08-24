@@ -7,7 +7,7 @@ def lambda_handler(event, context):
 
     
     create_time = datetime.datetime.now()
-    create_fmt = create_time.strftime('%Y-%m-%d')
+    create_fmt = create_time.strftime('%Y-%m-%d-%H:%M:%S')
 
     ec2_client = boto3.client('ec2')
     regions = [region['RegionName'] for region in ec2_client.describe_regions()['Regions']]
