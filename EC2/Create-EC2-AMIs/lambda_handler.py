@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 
 import boto3
 
@@ -18,11 +18,16 @@ def lambda_handler(event, context):
         instances = ec2.instances.filter(
             Filters=[{'Name': 'instance-state-name',
                       'Values': ['running']}])
+        if instances:
+            for instance in instances:
+                intance_id = instance.id 
+                ec2_client.create_image( InstanceId=intance_id, 
+                Name="Lambda- " + intance_id + "-" + create_fmt, 
+                Description="Lambda created AMI of instance " + intance_id + " from " + create_fmt, NoReboot=True, 
+                DryRun=False)
+                print("AMI created for instance ID : " + intance_id )
+        else:
+            print("There are no running Ec2 Instances in ",region)
+            
 
-        for instance in instances:
-            intance_id = instance.id 
-            ec2_client.create_image( InstanceId=intance_id, 
-            Name="Lambda - " + intance_id + " from " + create_fmt, 
-            Description="Lambda created AMI of instance " + intance_id + " from " + create_fmt, NoReboot=True, 
-            DryRun=False)
-            print("AMI created for instance ID : " + intance_id )
+    
