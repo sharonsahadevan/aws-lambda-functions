@@ -21,7 +21,7 @@ def lambda_handler(event, context):
         if instances:
             for instance in instances:
                 intance_id = instance.id 
-                ec2_client.create_image( InstanceId=intance_id, 
+                ec2_client.create_image( InstanceId=instance_id, 
                 Name="Lambda- " + intance_id + "-" + create_fmt, 
                 Description="Lambda created AMI of instance " + intance_id + " from " + create_fmt, NoReboot=True, 
                 DryRun=False)
