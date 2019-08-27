@@ -20,12 +20,12 @@ def lambda_handler(event, context):
                       'Values': ['running']}])
         if instances:
             for instance in instances:
-                intance_id = instance.id 
+                instance_id = instance.id 
                 ec2_client.create_image( InstanceId=instance_id, 
-                Name="Lambda- " + intance_id + "-" + create_fmt, 
-                Description="Lambda created AMI of instance " + intance_id + " from " + create_fmt, NoReboot=True, 
+                Name="Lambda- " + instance_id + "-" + create_fmt, 
+                Description="Lambda created AMI of instance " + instance_id + " from " + create_fmt, NoReboot=True, 
                 DryRun=False)
-                print("AMI created for instance ID : " + intance_id )
+                print("AMI created for instance ID : " + instance_id )
         else:
             print("There are no running Ec2 Instances in ",region)
             
