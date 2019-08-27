@@ -21,10 +21,14 @@ def lambda_handler(event, context):
         if instances:
             for instance in instances:
                 instance_id = instance.id 
-                ec2_client.create_image( InstanceId=instance_id, 
-                Name="Lambda- " + instance_id + "-" + create_fmt, 
-                Description="Lambda created AMI of instance " + instance_id + " from " + create_fmt, NoReboot=True, 
-                DryRun=False)
+                try:
+                    ec2_client.create_image( InstanceId=instance_id, 
+                    Name="Lambda- " + instance_id + "-" + create_fmt, 
+                    Description="Lambda created AMI of instance " + instance_id + " from " + create_fmt, NoReboot=True, 
+                    DryRun=False)
+                except:
+                        print("Invalid instance_id error: " + instance_id)
+                        
                 print("AMI created for instance ID : " + instance_id )
         else:
             print("There are no running Ec2 Instances in ",region)
